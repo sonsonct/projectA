@@ -1,23 +1,20 @@
-
-import Link from 'next/link'
-import { getPosts } from '../lib/getData'
-import { Post } from '../ui/post'
+"use client";
 import NavBar from '@/app/components/NavBar'
+import ListPost from '@/app/components/ListPost'
+import { useState } from 'react';
+import { PostQuery } from '@/app/interfaces/queryPost.interface';
 
- 
-export default async function Page() {
-  const posts = await getPosts()
- 
+
+export default function Page() {
+  const [searchQuery, setSearchQuery] = useState<PostQuery>({
+    searchKey: "",
+    category: "",
+    page: 1,
+  });
   return (
     <>
-    <NavBar/>
-    <ul>
-      {posts.data.map((post) => (
-        <li key={post.id}>
-          <Link href={`/blog/${post.id}`}>{post.title}</Link>
-        </li>
-      ))}
-    </ul>
+      <NavBar onSearch={setSearchQuery} />
+      <ListPost searchQuery={searchQuery} />
     </>
   )
 }

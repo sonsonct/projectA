@@ -1,9 +1,9 @@
+import { PostQuery } from "@/app/interfaces/queryPost.interface";
 import { api } from "@/app/lib/apiClient";
 
-export async function getPosts() {
+export async function getPosts(options?: PostQuery) {
     try {
-        const response = await api.get('public/articles');
-        await sleep(5000);
+        const response = await api.get('public/articles', options);
         return response.data;
     } catch (error) {
         console.error('Error fetching posts:', error);
@@ -19,8 +19,4 @@ export async function getDetailPosts(id) {
     } catch (error) {
         console.error('Error fetching posts:', error);
     }
-}
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
 }

@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Modal from "@/app/components/Modal";
 import { useRouter } from "next/navigation";
 
+
 export default function Login() {
     const [error, setError] = useState("");
     const [errorPassword, setErrorPassword] = useState("");
@@ -15,14 +16,16 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
         const token = localStorage.getItem("accessToken");
         if (token) {
-            router.push("/");
+            router.replace("/");
         }
-    }, []);
+
+    }, [isLogin, router]);
 
     const onSubmit = async () => {
         try {
@@ -30,6 +33,8 @@ export default function Login() {
 
             localStorage.setItem("accessToken", data.data.accessToken);
             localStorage.setItem("titanToken", data.data.titanToken);
+            setIsLogin(true);
+            router.replace("/");
         } catch (error) {
             setError("Tài khoảng mật khẩu, không đúng");
             setIsModalOpen(true);
