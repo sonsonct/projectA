@@ -12,11 +12,28 @@ export default function Home() {
     pageSize: 9,
     sortType: 1,
   });
+
+  const [data, setData] = useState({
+    data: [],
+    page: 1,
+    pageSize: 9,
+    sortType: 1,
+    totalItem: 0,
+    totalPage: 1,
+  });
+
+  const handlePageChange = (newPage: number) => {
+    setSearchQuery((prevQuery) => ({
+      ...prevQuery,
+      page: newPage,
+    }));
+  };
+
   return (
     <>
-      <NavBar onSearch={setSearchQuery} />
-      <ListPost searchQuery={searchQuery} />
-      <Pagination />
+      <NavBar onSearch={(newQuery) => setSearchQuery({ ...searchQuery, ...newQuery, page: 1 })} />
+      <ListPost query={searchQuery} onGetData={setData} />
+      <Pagination currentPage={data.page} totalPages={data.totalPage} onPageChange={handlePageChange} />
     </>
   );
 }
