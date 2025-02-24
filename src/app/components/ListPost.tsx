@@ -79,11 +79,10 @@ export default function ListPost({ query, onGetData }: ListPostProps) {
                             <div className="p-0">
                                 <Link href={`/blog/${post.id}`}>
                                     <div className="relative aspect-[1.91/1]">
-                                        <Image
-                                            src={post.thumbnail ? `https://titan-blog.s3.amazonaws.com/${post.thumbnail}` : "/placeholder.svg"}
+                                        <img
+                                            src={post.thumbnail ? `https://titan-blog.s3.amazonaws.com/` + post.thumbnail : "/placeholder.svg"}
                                             alt={post.title}
-                                            fill
-                                            className="object-cover"
+                                            className="object-cover fill"
                                         />
                                     </div>
                                 </Link>
