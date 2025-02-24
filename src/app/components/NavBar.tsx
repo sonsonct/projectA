@@ -53,7 +53,7 @@ export default function NavBar({ onSearch }: { onSearch?: (query: any) => void }
       setUser(userData.data);
     } catch (error) {
       localStorage.removeItem("accessToken");
-      console.error("Lỗi khi lấy thông tin người dùng:", error);
+      console.error("Lỗi khi lấy thông tin người dùng:", error.response.data);
     }
   };
   const router = useRouter();
