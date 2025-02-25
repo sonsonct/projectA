@@ -37,6 +37,7 @@ export default function Login() {
             router.replace("/");
         } catch (error) {
             setError("Tài khoảng mật khẩu, không đúng");
+            console.log(error);
             setIsModalOpen(true);
         }
 
