@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import { IUser } from "../interfaces/user.interface";
 
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
@@ -18,8 +19,7 @@ const navigation = [
 ];
 
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/my-porfile" },
   { name: "Sign out", href: "#" },
 ];
 
@@ -33,14 +33,8 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-}
-
 export default function NavBar({ onSearch }: { onSearch?: (query: any) => void }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
   const [searchKey, setSearchKey] = useState("");
 
   const fetchUserProfile = async () => {
@@ -49,7 +43,7 @@ export default function NavBar({ onSearch }: { onSearch?: (query: any) => void }
     if (!token) return;
 
     try {
-      const userData = await myProfile(token);
+      const userData = await myProfile();
       setUser(userData.data);
     } catch (error) {
       localStorage.removeItem("accessToken");
